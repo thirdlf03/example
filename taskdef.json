@@ -1,5 +1,5 @@
 {
-  "family": "nginx-task",
+  "family": "fastapi-task",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "256",
@@ -7,21 +7,21 @@
   "executionRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
-      "name": "nginx",
+      "name": "fastapi",
       "image": "<IMAGE1_URI>",
       "essential": true,
       "cpu": 256,
       "memory": 512,
       "portMappings": [
         {
-          "containerPort": 80,
+          "containerPort": 8000,
           "protocol": "tcp"
         }
       ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/logs/terraform/nginx",
+          "awslogs-group": "/ecs/logs/terraform/fastapi",
           "awslogs-region": "ap-northeast-1",
           "awslogs-stream-prefix": "terraform"
         }
