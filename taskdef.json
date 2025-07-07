@@ -1,0 +1,31 @@
+{
+  "family": "nginx-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "nginx",
+      "image": "<IMAGE1_URI>",
+      "essential": true,
+      "cpu": 256,
+      "memory": 512,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/logs/terraform/nginx",
+          "awslogs-region": "ap-northeast-1",
+          "awslogs-stream-prefix": "terraform"
+        }
+      }
+    }
+  ]
+}
