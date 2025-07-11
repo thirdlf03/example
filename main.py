@@ -1,14 +1,13 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi_cognito import CognitoToken
 import uvicorn
 from auth import (
     settings, 
     get_user_info, 
-    verify_token_type,
     get_required_auth,
     get_optional_auth,
-    require_id_token
+    require_id_token,
+    CognitoUser
 )
 
 app = FastAPI(
@@ -47,7 +46,7 @@ def test():
 
 
 @app.get("/protected")
-def protected_endpoint(auth: CognitoToken = Depends(get_required_auth())):
+def protected_endpoint(auth: CognitoUser = Depends(get_required_auth())):
     """Protected endpoint - requires valid JWT token"""
     try:
         # Verify token type (accept both id and access tokens)
@@ -63,7 +62,7 @@ def protected_endpoint(auth: CognitoToken = Depends(get_required_auth())):
 
 
 @app.get("/user/profile")
-def get_user_profile(auth: CognitoToken = Depends(require_id_token())):
+def get_user_profile(auth: CognitoUser = Depends(require_id_token())):
     """Get user profile information - requires ID token"""
     try:
         user_info = get_user_info(auth)
@@ -81,7 +80,7 @@ def get_user_profile(auth: CognitoToken = Depends(require_id_token())):
 
 
 @app.get("/admin")
-def admin_endpoint(auth: CognitoToken = Depends(get_required_auth())):
+def admin_endpoint(auth: CognitoUser = Depends(get_required_auth())):
     """Admin endpoint - requires authentication"""
     try:
         user_info = get_user_info(auth)
@@ -100,7 +99,7 @@ def admin_endpoint(auth: CognitoToken = Depends(get_required_auth())):
 
 
 @app.get("/optional-auth")
-def optional_auth_endpoint(auth: CognitoToken = Depends(get_optional_auth())):
+def optional_auth_endpoint(auth: CognitoUser = Depends(get_optional_auth())):
     """Endpoint with optional authentication"""
     if auth:
         user_info = get_user_info(auth)
