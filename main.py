@@ -20,10 +20,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",  # Vite dev server
-        "http://localhost:3000",  # React dev server
-        "https://thirdlf03.com",  # Production domain
-        "https://*.thirdlf03.com",  # Subdomains
+        "*",
     ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
