@@ -18,6 +18,28 @@
           "protocol": "tcp"
         }
       ],
+      "environment": [
+        {
+          "name": "AWS_REGION",
+          "value": "<AWS_REGION>"
+        },
+        {
+          "name": "COGNITO_USER_POOL_ID",
+          "value": "<COGNITO_USER_POOL_ID>"
+        },
+        {
+          "name": "COGNITO_CLIENT_ID",
+          "value": "<COGNITO_CLIENT_ID>"
+        },
+        {
+          "name": "ENVIRONMENT",
+          "value": "<ENVIRONMENT>"
+        },
+        {
+          "name": "CORS_ORIGINS",
+          "value": "<CORS_ORIGINS>"
+        }
+      ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
