@@ -22,7 +22,7 @@ phases:
       - sed -i "s/<COGNITO_USER_POOL_ID>/$COGNITO_USER_POOL_ID/g" taskdef.json
       - sed -i "s/<COGNITO_CLIENT_ID>/$COGNITO_CLIENT_ID/g" taskdef.json
       - sed -i "s/<ENVIRONMENT>/$ENVIRONMENT/g" taskdef.json
-      - sed -i "s/<CORS_ORIGINS>/$CORS_ORIGINS/g" taskdef.json
+      - sed -i "s|<CORS_ORIGINS>|$CORS_ORIGINS|g" taskdef.json
 artifacts:
   files:
     - appspec.yaml
