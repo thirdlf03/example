@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     
     # Application Configuration
     environment: str = "development"
+    cors_origins: str = "http://localhost:5173,http://localhost:3000,https://thirdlf03.com"
     
     model_config = {
         'env_file': '.env',
@@ -31,7 +32,10 @@ class Settings(BaseSettings):
 settings = Settings()
 
 # Initialize Cognito authentication only if real credentials are provided
-if settings.cognito_user_pool_id != "dummy-pool-id" and settings.cognito_client_id != "dummy-client-id":
+if (settings.cognito_user_pool_id != "dummy-pool-id" and 
+    settings.cognito_client_id != "dummy-client-id" and
+    not settings.cognito_user_pool_id.startswith("your-") and
+    not settings.cognito_client_id.startswith("your-")):
     try:
         cognito_settings = CognitoSettings(
             region=settings.aws_region,
