@@ -4,8 +4,8 @@ uv sync
 cp .env.example .env
 ```
 
-bb
 
+fix docker build command
 aa
 # サーバー起動
 Dynamo DBと繋げたり、DockerでFastAPI起動する場合は、
